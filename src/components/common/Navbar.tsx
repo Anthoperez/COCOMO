@@ -20,7 +20,7 @@ import {
 import { FiLogOut, FiMenu } from "react-icons/fi";
 //import { FaUserAstronaut } from "react-icons/fa";
 
-import Logo from "/assets/images/Metricalc.svg";
+import Logo from "/assets/images/Cocomo.svg";
 import NavbarItems from "./NavbarItems";
 
 // const currentUser = { email: "oscare.c.s@hotmail.com", is_superuser: false };

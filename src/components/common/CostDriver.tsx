@@ -85,7 +85,7 @@ const CostDriver = ({ label, options, selectedValues, onChange }: CostDriverProp
                         isDisabled={cost === null}
                         onMouseEnter={() => setHoveredValue(`${optionLabel}-${level}`)}
                         onMouseLeave={() => setHoveredValue(null)}
-                        colorScheme="green"
+                        colorScheme="blue"
                       >
                         {cost !== null ? level : "N/A"}
                       </Radio>

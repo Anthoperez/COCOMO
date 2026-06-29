@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { FiCpu, FiUsers,FiLayers,FiBriefcase } from "react-icons/fi"; // Cambia FiBriefcase por FiCpu
 
 const items = [
-  { icon: FiCpu, title: "Cocomo 81", path: "/cocomo" }, // Usa FiCpu aquí
+  //{ icon: FiCpu, title: "Cocomo 81", path: "/cocomo" }, // Usa FiCpu aquí
   { icon: FiCpu, title: "Cocomo II", path: "/cocomo-two" },
-  { icon: FiLayers, title: "Puntos de Funcion", path: "/function-point" },
-  { icon: FiBriefcase, title: "Use Case Point", path: "/use-case-point" },
+  //{ icon: FiLayers, title: "Puntos de Funcion", path: "/function-point" },
+  //{ icon: FiBriefcase, title: "Use Case Point", path: "/use-case-point" },
 ];
 
 interface NavbarItemsProps {
@@ -31,15 +31,15 @@ const NavbarItems = ({ onClose }: NavbarItemsProps) => {
           align="center"
           mx={3}
           color={textColor}
-          _hover={{ textDecoration: "none", color: "green.500" }} // hover verde
+          _hover={{ textDecoration: "none", color: "blue.500" }} // hover azul
           onClick={onClose}
         >
-          <Icon as={icon} boxSize={6} color="green.500" /> {/* icono más grande y verde */}
+          <Icon as={icon} boxSize={6} color="blue.500" /> {/* icono más grande y azul */}
           <Text
             ml={2}
             fontSize="xl" 
             fontWeight="bold" 
-            color="green.600" 
+            color="blue.500" 
             letterSpacing="wide"
           >
             {title}

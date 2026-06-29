@@ -190,7 +190,7 @@ const FunctionPoint: React.FC = () => {
       <Box pt={1} mx={2}>
         <HStack mb={1}>
           <Text fontSize="xl">Function Points</Text>
-          <Button colorScheme="teal" variant="outline" size="sm" onClick={helpModal.onOpen}>
+          <Button colorScheme="blue" variant="outline" size="sm" onClick={helpModal.onOpen}>
             ?
           </Button>
         </HStack>
@@ -235,7 +235,7 @@ const FunctionPoint: React.FC = () => {
                 <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
                   {(Object.keys(functionCounts) as FunctionType[]).map((type) => (
                     <Box key={type}>
-                      <Text fontWeight="semibold" mb={2} color="green.600">
+                      <Text fontWeight="semibold" mb={2} color="blue.600">
                         {type}
                       </Text>
                       <Table variant="simple" size="sm" borderWidth="1px">
@@ -276,7 +276,7 @@ const FunctionPoint: React.FC = () => {
 
             <Button
               type="submit"
-              colorScheme="green"
+              colorScheme="blue"
               size="lg"
               isLoading={loading}
               loadingText="Calculating..."

@@ -177,7 +177,7 @@ const CocomoTwo = () => {
                 <HStack mb={1}>
                     <Text fontSize="xl">COCOMO II</Text>
                     <Button 
-                        colorScheme='teal' 
+                        colorScheme='blue' 
                         variant='outline'
                         size='sm'
                         onClick={helpModal.onOpen}>
@@ -222,7 +222,7 @@ const CocomoTwo = () => {
                                             id='stages' 
                                             onChange={handleSwitchChange} 
                                             isChecked={isStagesEnabled}
-                                            colorScheme="green"
+                                            colorScheme="blue"
                                         />
                                     </FormControl>
                                 </Stack>
@@ -270,7 +270,7 @@ const CocomoTwo = () => {
                             variant="solid" 
                             type="submit" 
                             isLoading={loading} 
-                            colorScheme="green"
+                            colorScheme="blue"
                             size="lg"
                             loadingText="Calculando..."
                         >
@@ -360,7 +360,7 @@ const CocomoTwo = () => {
                                                 Nota: Los costos de etapa son válidos solo para la suma de porcentajes = 100%, 
                                                 de lo contrario arrojará resultados inconsistentes.
                                             </Text>
-                                            <Tabs variant='soft-rounded' colorScheme='green' isFitted>
+                                            <Tabs variant='soft-rounded' colorScheme='blue' isFitted>
                                                 <TabList>
                                                     <Tab>Req</Tab>
                                                     <Tab>Ana</Tab>

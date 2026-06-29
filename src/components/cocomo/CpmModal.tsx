@@ -153,7 +153,7 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
                         <button
                             type="submit"
                             style={{
-                                background: "#38A169",
+                                background: "#1d9ef2",
                                 color: "white",
                                 borderRadius: "4px",
                                 padding: "8px 16px",

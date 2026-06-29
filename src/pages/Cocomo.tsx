@@ -136,7 +136,7 @@ const Cocomo = () => {
                 <HStack mb={1}>
                     <Text fontSize="xl">COCOMO</Text>
                     <Button 
-                        colorScheme='teal' 
+                        colorScheme='blue' 
                         variant='outline'
                         size='sm'
                         onClick={helpModal.onOpen}>
@@ -190,7 +190,7 @@ const Cocomo = () => {
                                     id='stages'
                                     onChange={handleSwitchChange}
                                     isChecked={isStagesEnabled}
-                                    colorScheme="green" 
+                                    colorScheme="blue" 
                                 />
                             </FormControl>
                         </Stack>
@@ -210,7 +210,7 @@ const Cocomo = () => {
                             </SimpleGrid>
                         </FormControl>
 
-                        <Button variant="solid" type="submit" isLoading={loading} size="sm" colorScheme="green">
+                        <Button variant="solid" type="submit" isLoading={loading} size="sm" colorScheme="blue">
                             Estimate
                         </Button>
                     </VStack>
