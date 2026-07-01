@@ -50,6 +50,8 @@ export class MethodsService {
     const duration = 3.67 * Math.pow(effort, E2);
 
     // Supongamos que la productividad es simplemente KDLC / ESF
+    
+    //Calcular la Productividad
     const productivity = kdlc / effort;
 
     // Calcular el costo asumiendo un costo por persona-mes
