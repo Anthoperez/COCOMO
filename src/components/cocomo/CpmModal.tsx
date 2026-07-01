@@ -29,11 +29,11 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
     const [values, setValues] = useState<{
         [key in StageType]: StageValues;
     }>({
-        requirements: { percentage: "", cost: "", disabled: false },
-        analysis: { percentage: "", cost: "", disabled: false },
-        design: { percentage: "", cost: "", disabled: false },
-        development: { percentage: "", cost: "", disabled: false },
-        testing: { percentage: "", cost: "", disabled: false },
+        requerimientos: { percentage: "", cost: "", disabled: false },
+        analisis: { percentage: "", cost: "", disabled: false },
+        diseño: { percentage: "", cost: "", disabled: false },
+        desarrollo: { percentage: "", cost: "", disabled: false },
+        pruebas: { percentage: "", cost: "", disabled: false },
     });
 
     const [error, setError] = useState<string | null>(null);
@@ -44,11 +44,11 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
         let totalWeightedCost = 0;
         let totalPercentage = 0;
         const stagePercentages: StagePercentages = {
-            requirements: 0,
-            analysis: 0,
-            design: 0,
-            development: 0,
-            testing: 0
+            requerimientos: 0,
+            analisis: 0,
+            diseño: 0,
+            desarrollo: 0,
+            pruebas: 0
         };
 
         (Object.keys(values) as StageType[]).forEach((key) => {
@@ -197,7 +197,7 @@ const RowWithCheckbox = ({
     return (
         <HStack spacing={4} align="center">
             <FormControl id={`${id}Percentage`} isDisabled={values.disabled}>
-                <FormLabel>{`${label} Percentage`}</FormLabel>
+                <FormLabel>{`Porcentaje de ${label}`}</FormLabel>
                 <Input
                     placeholder="Ejemplo: %: 40, 65, 100"
                     type="number"
@@ -206,7 +206,7 @@ const RowWithCheckbox = ({
                 />
             </FormControl>
             <FormControl id={`${id}Cost`} isDisabled={values.disabled}>
-                <FormLabel>{`${label} Cost`}</FormLabel>
+                <FormLabel>{`Costo de ${label}`}</FormLabel>
                 <Input
                     placeholder="Ejemplo: 1000"
                     type="number"

@@ -5,7 +5,6 @@ import {
   Radio,
   RadioGroup,
   Text,
-  Tooltip,
   Table,
   Thead,
   Tbody,
@@ -22,7 +21,6 @@ type CostDriverProps = {
 };
 
 const CostDriver = ({ label, options, selectedValues, onChange }: CostDriverProps) => {
-  const [hoveredValue, setHoveredValue] = useState<string | null>(null);
   const [localSelectedValues, setLocalSelectedValues] = useState(selectedValues);
 
   useEffect(() => {
@@ -72,25 +70,18 @@ const CostDriver = ({ label, options, selectedValues, onChange }: CostDriverProp
               <Td><FormLabel>{optionLabel}</FormLabel></Td>
               {Object.entries(values).map(([level, cost]) => (
                 <Td key={level}>
-                  <Tooltip
-                    label={cost !== null ? cost.toFixed(2) : "N/A"}
-                    isOpen={hoveredValue === `${optionLabel}-${level}`}
+                  <RadioGroup
+                    value={localSelectedValues[optionLabel] || ""}
+                    onChange={(value) => handleChange(optionLabel, value)}
                   >
-                    <RadioGroup
-                      value={localSelectedValues[optionLabel] || ""}
-                      onChange={(value) => handleChange(optionLabel, value)}
+                    <Radio
+                      value={String(cost)}
+                      isDisabled={cost === null}
+                      colorScheme="blue"
                     >
-                      <Radio
-                        value={String(cost)}
-                        isDisabled={cost === null}
-                        onMouseEnter={() => setHoveredValue(`${optionLabel}-${level}`)}
-                        onMouseLeave={() => setHoveredValue(null)}
-                        colorScheme="blue"
-                      >
-                        {cost !== null ? level : "N/A"}
-                      </Radio>
-                    </RadioGroup>
-                  </Tooltip>
+                      {cost !== null ? cost.toFixed(2) : "N/A"}
+                    </Radio>
+                  </RadioGroup>
                 </Td>
               ))}
             </Tr>

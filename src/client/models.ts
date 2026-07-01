@@ -44,7 +44,7 @@ export type SetVar = {
   
 }
 
-export type StageType = "requirements" | "analysis" | "design" | "development" | "testing";
+export type StageType = "requerimientos" | "analisis" | "diseño" | "desarrollo" | "pruebas";
 
 export interface StageValues {
     percentage: string;
@@ -53,9 +53,9 @@ export interface StageValues {
 }
 
 export interface StagePercentages {
-    requirements: number;
-    analysis: number;
-    design: number;
-    development: number;
-    testing: number;
+    requerimientos: number;
+    analisis: number;
+    diseño: number;
+    desarrollo: number;
+    pruebas: number;
 }

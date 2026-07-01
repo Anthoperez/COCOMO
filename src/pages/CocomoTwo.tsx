@@ -44,15 +44,15 @@ const CocomoTwo = () => {
     const equationModal = useDisclosure();
 
     const [stagePercentages, setStagePercentages] = useState<StagePercentages>({
-        requirements: 0,
-        analysis: 0,
-        design: 0,
-        development: 0,
-        testing: 0
+        requerimientos: 0,
+        analisis: 0,
+        diseño: 0,
+        desarrollo: 0,
+        pruebas: 0
     });
 
     const scaleDrivers = {
-        'Scale Drivers': {
+        'Factores de Escala': {
             PREC: { VL: 6.2, L: 4.96, N: 3.72, H: 2.48, VH: 1.24, EH: 0.0 },
             FLEX: { VL: 5.07, L: 4.05, N: 3.04, H: 2.03, VH: 1.01, EH: 0.0 },
             RESL: { VL: 7.07, L: 5.65, N: 4.24, H: 2.83, VH: 1.41, EH: 0.0 },
@@ -62,7 +62,7 @@ const CocomoTwo = () => {
     };    
 
     const costDrivers = {
-        PRODUCT: {
+        PRODUCTO: {
             RSS: { VL: 0.82, L: 0.92, N: 1.00, H: 1.10, VH: 1.26, EH: null },
             TBD: { VL: null, L: 0.90, N: 1.00, H: 1.14, VH: 1.28, EH: null },
             CPR: { VL: 0.73, L: 0.87, N: 1.00, H: 1.17, VH: 1.34, EH: 1.74 },
@@ -82,7 +82,7 @@ const CocomoTwo = () => {
             RMP: { VL: null, L: null, N: 1.00, H: 1.05, VH: 1.17, EH: 1.46 },
             VMC: { VL: null, L: 0.87, N: 1.00, H: 1.15, VH: 1.30, EH: null },
         },
-        PROJECT: {
+        PROYECTO: {
             UHS: { VL: 1.17, L: 1.09, N: 1.00, H: 0.90, VH: 0.78, EH: null },
             RPL: { VL: 1.43, L: 1.14, N: 1.00, H: null, VH: null, EH: null },
             DMS: { VL: 1.22, L: 1.09, N: 1.00, H: 0.93, VH: 0.86, EH: 0.80 },
@@ -145,11 +145,11 @@ const CocomoTwo = () => {
         if (isStagesEnabled) {
             setShowStageResults(false);
             setStagePercentages({
-                requirements: 0,
-                analysis: 0,
-                design: 0,
-                development: 0,
-                testing: 0
+                requerimientos: 0,
+                analisis: 0,
+                diseño: 0,
+                desarrollo: 0,
+                pruebas: 0
             });
         } else {
             cpmModal.onOpen();
@@ -229,26 +229,6 @@ const CocomoTwo = () => {
                             </CardBody>
                         </Card>
 
-                        {/* Cost Drivers Section */}
-                        <Card>
-                            <CardHeader>
-                                <Text fontWeight="bold">Cost Drivers</Text>
-                            </CardHeader>
-                            <CardBody>
-                                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                                    {Object.entries(costDrivers).map(([label, options]) => (
-                                        <CostDriver
-                                            key={label}
-                                            label={label}
-                                            options={options}
-                                            selectedValues={selectedCostDrivers}
-                                            onChange={handleCostDriverChange}
-                                        />
-                                    ))}
-                                </SimpleGrid>
-                            </CardBody>
-                        </Card>
-
                         {/* Scale Drivers Section */}
                         <Card>
                             <CardBody>
@@ -265,6 +245,27 @@ const CocomoTwo = () => {
                                 </SimpleGrid>
                             </CardBody>
                         </Card>
+
+                        {/* Cost Drivers Section */}
+                        <Card>
+                            <CardHeader>
+                                <Text fontWeight="bold">Multiplicadores de Esfuerzo</Text>
+                            </CardHeader>
+                            <CardBody>
+                                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                                    {Object.entries(costDrivers).map(([label, options]) => (
+                                        <CostDriver
+                                            key={label}
+                                            label={label}
+                                            options={options}
+                                            selectedValues={selectedCostDrivers}
+                                            onChange={handleCostDriverChange}
+                                        />
+                                    ))}
+                                </SimpleGrid>
+                            </CardBody>
+                        </Card>
+
 
                         <Button 
                             variant="solid" 
@@ -356,10 +357,10 @@ const CocomoTwo = () => {
                                     
                                     {(isStagesEnabled || showStageResults) && (
                                         <>
-                                            <Text mt={4} fontSize="sm" color="gray.600">
+                                            {/* <Text mt={4} fontSize="sm" color="gray.600">
                                                 Nota: Los costos de etapa son válidos solo para la suma de porcentajes = 100%, 
                                                 de lo contrario arrojará resultados inconsistentes.
-                                            </Text>
+                                            </Text> */}
                                             <Tabs variant='soft-rounded' colorScheme='blue' isFitted>
                                                 <TabList>
                                                     <Tab>Req</Tab>
@@ -369,11 +370,11 @@ const CocomoTwo = () => {
                                                     <Tab>Test</Tab>
                                                 </TabList>
                                                 <TabPanels>
-                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.requirements).toFixed(2)}</TabPanel>
-                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.analysis).toFixed(2)}</TabPanel>
-                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.design).toFixed(2)}</TabPanel>
-                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.development).toFixed(2)}</TabPanel>
-                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.testing).toFixed(2)}</TabPanel>
+                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.requerimientos).toFixed(2)}</TabPanel>
+                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.analisis).toFixed(2)}</TabPanel>
+                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.diseño).toFixed(2)}</TabPanel>
+                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.desarrollo).toFixed(2)}</TabPanel>
+                                                    <TabPanel>S/. {(estimationResult.costo * stagePercentages.pruebas).toFixed(2)}</TabPanel>
                                                 </TabPanels>
                                             </Tabs>
                                         </>
