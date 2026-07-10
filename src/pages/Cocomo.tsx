@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { CocomoForm, CocomoOut } from '../client/models';
 import { MethodsService } from '../client/services';
+import { downloadEstimationReport } from '../client/pdfReport';
 import CostDriver from '../components/common/CostDriver';
 import CpmModal from '../components/cocomo/CpmModal';
 import { StagePercentages } from '../client/models';
@@ -39,11 +40,11 @@ const Cocomo = () => {
     const equationModal = useDisclosure();
 
     const [stagePercentages, setStagePercentages] = useState<StagePercentages>({
-        requirements: 0,
-        analysis: 0,
-        design: 0,
-        development: 0,
-        testing: 0
+        requerimientos: 0,
+        analisis: 0,
+        diseño: 0,
+        desarrollo: 0,
+        pruebas: 0
     });
 
     const costDrivers = {
@@ -128,6 +129,40 @@ const Cocomo = () => {
 
     const handleModalSubmit = () => {
         // No cambies isStagesEnabled aquí
+    };
+
+    const handleDownloadPdf = () => {
+        if (!estimationResult) return;
+
+        const costDriverEntries = Object.entries(costDrivers).flatMap(([groupLabel, options]) =>
+            Object.entries(options).map(([optionLabel]) => ({
+                label: `${groupLabel} - ${optionLabel}`,
+                selectedValue: selectedCostDrivers[optionLabel] ?? '',
+                factorValue: selectedCostDrivers[optionLabel] ? Number(selectedCostDrivers[optionLabel]) : null,
+            }))
+        );
+
+        const stageBreakdown = [
+            { label: 'Requerimientos', percentage: stagePercentages.requerimientos, cost: estimationResult.costo * stagePercentages.requerimientos },
+            { label: 'Análisis', percentage: stagePercentages.analisis, cost: estimationResult.costo * stagePercentages.analisis },
+            { label: 'Diseño', percentage: stagePercentages.diseño, cost: estimationResult.costo * stagePercentages.diseño },
+            { label: 'Desarrollo', percentage: stagePercentages.desarrollo, cost: estimationResult.costo * stagePercentages.desarrollo },
+            { label: 'Pruebas', percentage: stagePercentages.pruebas, cost: estimationResult.costo * stagePercentages.pruebas },
+        ];
+
+        downloadEstimationReport({
+            title: 'COCOMO',
+            subtitle: 'Reporte de estimación de esfuerzo y costo',
+            formData: {
+                kdlc: formData.kdlc,
+                cpm: formData.cpm,
+                mode: formData.mode,
+            },
+            estimationResult,
+            costDrivers: costDriverEntries,
+            stageBreakdown: isStagesEnabled ? stageBreakdown : undefined,
+            stagesEnabled: isStagesEnabled,
+        });
     };
 
     return (
@@ -237,7 +272,12 @@ const Cocomo = () => {
                         </HStack>
                         <EquationsModal isOpen={equationModal.isOpen} onClose={equationModal.onClose} mode={formData.mode} />
 
-                        <Text fontSize="xl" mb={4}>Estimation Results</Text>
+                        <Stack direction={['column', 'row']} justify="space-between" align="center" mb={4}>
+                            <Text fontSize="xl">Estimation Results</Text>
+                            <Button colorScheme="purple" variant="outline" size="sm" onClick={handleDownloadPdf}>
+                                Descargar PDF
+                            </Button>
+                        </Stack>
                         <Box borderWidth="1px" borderRadius="lg" p={2} mb={2}>
                             <VStack spacing={4} align="stretch">
                                 <Stack direction={["column", "row"]} spacing={4}>
@@ -297,11 +337,11 @@ const Cocomo = () => {
                                                 <Tab>Test</Tab>
                                             </TabList>
                                             <TabPanels>
-                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.requirements).toFixed(2)}</TabPanel>
-                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.analysis).toFixed(2)}</TabPanel>
-                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.design).toFixed(2)}</TabPanel>
-                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.development).toFixed(2)}</TabPanel>
-                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.testing).toFixed(2)}</TabPanel>
+                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.requerimientos).toFixed(2)}</TabPanel>
+                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.analisis).toFixed(2)}</TabPanel>
+                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.diseño).toFixed(2)}</TabPanel>
+                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.desarrollo).toFixed(2)}</TabPanel>
+                                                <TabPanel>S/. {(estimationResult.costo * stagePercentages.pruebas).toFixed(2)}</TabPanel>
                                             </TabPanels>
                                         </Tabs>
                                     </>

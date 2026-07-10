@@ -16,6 +16,7 @@ import {
 
 import { CocomoTwoOut, CocomoTwoForm } from '../client/models';
 import { MethodsService } from '../client/services';
+import { downloadEstimationReport } from '../client/pdfReport';
 import CostDriver from '../components/common/CostDriver';
 import CpmModal from '../components/cocomo/CpmModal';
 import { StagePercentages } from '../client/models';
@@ -171,6 +172,48 @@ const CocomoTwo = () => {
         setIsStagesEnabled(false);
     };
 
+    const handleDownloadPdf = () => {
+        if (!estimationResult) return;
+
+        const costDriverEntries = Object.entries(costDrivers).flatMap(([groupLabel, options]) =>
+            Object.entries(options).map(([optionLabel]) => ({
+                label: `${groupLabel} - ${optionLabel}`,
+                selectedValue: selectedCostDrivers[optionLabel] ?? '',
+                factorValue: selectedCostDrivers[optionLabel] ? Number(selectedCostDrivers[optionLabel]) : null,
+            }))
+        );
+
+        const scaleDriverEntries = Object.entries(scaleDrivers).flatMap(([groupLabel, options]) =>
+            Object.entries(options).map(([optionLabel]) => ({
+                label: `${groupLabel} - ${optionLabel}`,
+                selectedValue: selectedScaleDrivers[optionLabel] ?? '',
+                factorValue: selectedScaleDrivers[optionLabel] ? Number(selectedScaleDrivers[optionLabel]) : null,
+            }))
+        );
+
+        const stageBreakdown = [
+            { label: 'Requerimientos', percentage: stagePercentages.requerimientos, cost: estimationResult.costo * stagePercentages.requerimientos },
+            { label: 'Análisis', percentage: stagePercentages.analisis, cost: estimationResult.costo * stagePercentages.analisis },
+            { label: 'Diseño', percentage: stagePercentages.diseño, cost: estimationResult.costo * stagePercentages.diseño },
+            { label: 'Desarrollo', percentage: stagePercentages.desarrollo, cost: estimationResult.costo * stagePercentages.desarrollo },
+            { label: 'Pruebas', percentage: stagePercentages.pruebas, cost: estimationResult.costo * stagePercentages.pruebas },
+        ];
+
+        downloadEstimationReport({
+            title: 'COCOMO II',
+            subtitle: 'Reporte de estimación de esfuerzo y costo',
+            formData: {
+                kdlc: formData.kdlc,
+                cpm: formData.cpm,
+            },
+            estimationResult,
+            costDrivers: costDriverEntries,
+            scaleDrivers: scaleDriverEntries,
+            stageBreakdown: isStagesEnabled || showStageResults ? stageBreakdown : undefined,
+            stagesEnabled: isStagesEnabled || showStageResults,
+        });
+    };
+
     return (
         <Container maxW="full">
             <Box pt={1} mx={2}>
@@ -301,60 +344,69 @@ const CocomoTwo = () => {
                         </HStack>
                         <EquationsModal isOpen={equationModal.isOpen} onClose={equationModal.onClose} mode={'COCOMO-II'} />
 
-                        <Text fontSize="xl" mb={4}>Resultados de la Estimación</Text>
+                        <Stack direction={['column', 'row']} justify="space-between" align="center" mb={4}>
+                            <Text fontSize="xl">Resultados de la Estimación</Text>
+                            <Button colorScheme="purple" variant="outline" onClick={handleDownloadPdf}>
+                                Descargar PDF
+                            </Button>
+                        </Stack>
                         <Card>
                             <CardBody>
                                 <VStack spacing={4} align="stretch">
-                                    <Stack direction={["column", "row"]} spacing={4}>
-                                        <FormControl id="esf">
-                                            <FormLabel>ESF</FormLabel>
-                                            <HStack>
-                                                <Text fontSize="lg" fontWeight="bold">
-                                                    {estimationResult.esf.toFixed(2)}
-                                                </Text>
-                                                <Text fontStyle="italic" color="gray.600">Personas-Mes</Text>
-                                            </HStack>
-                                        </FormControl>
-                                        <FormControl id="tdes">
-                                            <FormLabel>TDES</FormLabel>
-                                            <HStack>
-                                                <Text fontSize="lg" fontWeight="bold">
-                                                    {estimationResult.tdes.toFixed(2)}
-                                                </Text>
-                                                <Text fontStyle="italic" color="gray.600">Meses</Text>
-                                            </HStack>
-                                        </FormControl>
-                                    </Stack>
-                                    <Stack direction={["column", "row"]} spacing={4}>
-                                        <FormControl id="n">
-                                            <FormLabel>Trabajadores</FormLabel>
-                                            <HStack>
-                                                <Text fontSize="lg" fontWeight="bold">
-                                                    {estimationResult.n.toFixed(2)}
-                                                </Text>
-                                                <Text fontStyle="italic" color="gray.600">Personas</Text>
-                                            </HStack>
-                                        </FormControl>
-                                        <FormControl id="productividad">
-                                            <FormLabel>Productividad</FormLabel>
-                                            <HStack>
-                                                <Text fontSize="lg" fontWeight="bold">
-                                                    {estimationResult.productividad.toFixed(2)}
-                                                </Text>
-                                                <Text fontStyle="italic" color="gray.600">KLDC/Personas-Mes</Text>
-                                            </HStack>
-                                        </FormControl>
-                                    </Stack>
-                                    <FormControl id="costo">
-                                        <FormLabel>Costo Total</FormLabel>
-                                        <HStack>
-                                            <Text fontSize="lg" fontWeight="bold" color="green.600">
-                                                {estimationResult.costo.toFixed(2)}
-                                            </Text>
-                                            <Text fontStyle="italic" color="gray.600">Soles</Text>
-                                        </HStack>
-                                    </FormControl>
-                                    
+                                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
+                                        <Card>
+                                            <CardHeader>
+                                                <Text color="blue.600" fontWeight="bold">ESF</Text>
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Text fontSize="xl" fontWeight="bold" color="black">{estimationResult.esf.toFixed(2)}</Text>
+                                                <Text fontSize="sm" color="gray.600">Personas-Mes</Text>
+                                            </CardBody>
+                                        </Card>
+
+                                        <Card>
+                                            <CardHeader>
+                                                <Text color="purple.600" fontWeight="bold">TDES</Text>
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Text fontSize="xl" fontWeight="bold" color="black">{estimationResult.tdes.toFixed(2)}</Text>
+                                                <Text fontSize="sm" color="gray.600">Meses</Text>
+                                            </CardBody>
+                                        </Card>
+
+                                        <Card>
+                                            <CardHeader>
+                                                <Text color="orange.600" fontWeight="bold">Trabajadores</Text>
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Text fontSize="xl" fontWeight="bold" color="black">{estimationResult.n.toFixed(2)}</Text>
+                                                <Text fontSize="sm" color="gray.600">Personas</Text>
+                                            </CardBody>
+                                        </Card>
+                                    </SimpleGrid>
+
+                                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
+                                        <Card>
+                                            <CardHeader>
+                                                <Text color="teal.600" fontWeight="bold">Productividad</Text>
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Text fontSize="xl" fontWeight="bold" color="black">{estimationResult.productividad.toFixed(2)}</Text>
+                                                <Text fontSize="sm" color="gray.600">KLDC/Personas-Mes</Text>
+                                            </CardBody>
+                                        </Card>
+
+                                        <Card gridColumn={{ base: 'auto', md: 'span 2' }}>
+                                            <CardHeader>
+                                                <Text color="green.600" fontWeight="bold">Costo Total</Text>
+                                            </CardHeader>
+                                            <CardBody>
+                                                <Text fontSize="xl" fontWeight="bold" color="black">{estimationResult.costo.toFixed(2)}</Text>
+                                                <Text fontSize="sm" color="gray.600">Soles</Text>
+                                            </CardBody>
+                                        </Card>
+                                    </SimpleGrid>
+
                                     {(isStagesEnabled || showStageResults) && (
                                         <>
                                             {/* <Text mt={4} fontSize="sm" color="gray.600">

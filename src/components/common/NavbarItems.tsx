@@ -1,6 +1,6 @@
 import { Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
-import { FiCpu, FiUsers,FiLayers,FiBriefcase } from "react-icons/fi"; // Cambia FiBriefcase por FiCpu
+import { FiCpu, FiUsers } from "react-icons/fi";
 
 const items = [
   //{ icon: FiCpu, title: "Cocomo 81", path: "/app/cocomo" }, // Usa FiCpu aquí
