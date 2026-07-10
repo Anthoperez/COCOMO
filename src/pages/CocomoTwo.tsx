@@ -54,39 +54,39 @@ const CocomoTwo = () => {
 
     const scaleDrivers = {
         'Factores de Escala': {
-            PREC: { VL: 6.2, L: 4.96, N: 3.72, H: 2.48, VH: 1.24, EH: 0.0 },
+            PREC: { VL: 6.20, L: 4.96, N: 3.72, H: 2.48, VH: 1.24, EH: 0.0 },
             FLEX: { VL: 5.07, L: 4.05, N: 3.04, H: 2.03, VH: 1.01, EH: 0.0 },
             RESL: { VL: 7.07, L: 5.65, N: 4.24, H: 2.83, VH: 1.41, EH: 0.0 },
-            TEAM: { VL: 5.48, L: 4.38, N: 3.29, H: 2.19, VH: 1.1, EH: 0.0 },
-            PMAT: { VL: 7.8, L: 6.24, N: 4.68, H: 3.12, VH: 1.56, EH: 0.0 },
+            TEAM: { VL: 4.90, L: 3.92, N: 2.94, H: 1.96, VH: 0.98, EH: 0.0 },
+            PMAT: { VL: 7.88, L: 6.30, N: 4.73, H: 3.15, VH: 1.58, EH: 0.0 },
         },
     };    
 
     const costDrivers = {
         PRODUCTO: {
-            RSS: { VL: 0.82, L: 0.92, N: 1.00, H: 1.10, VH: 1.26, EH: null },
-            TBD: { VL: null, L: 0.90, N: 1.00, H: 1.14, VH: 1.28, EH: null },
-            CPR: { VL: 0.73, L: 0.87, N: 1.00, H: 1.17, VH: 1.34, EH: 1.74 },
+            RELY: { VL: 0.82, L: 0.92, N: 1.00, H: 1.10, VH: 1.26, EH: null },
+            DATA: { VL: null, L: 0.90, N: 1.00, H: 1.14, VH: 1.28, EH: null },
+            CPLX: { VL: 0.73, L: 0.87, N: 1.00, H: 1.17, VH: 1.34, EH: 1.74 },
             RUSE: { VL: null, L: 0.95, N: 1.00, H: 1.07, VH: 1.15, EH: 1.24 },
-            DOC: { VL: 0.81, L: 0.91, N: 1.00, H: 1.11, VH: 1.23, EH: null },
+            DOCU: { VL: 0.81, L: 0.91, N: 1.00, H: 1.11, VH: 1.23, EH: null },
         },
         PERSONAL: {
-            CAN: { VL: 1.42, L: 1.19, N: 1.00, H: 0.85, VH: 0.71, EH: null },
-            EAPL: { VL: 1.22, L: 1.10, N: 1.00, H: 0.88, VH: 0.81, EH: null },
-            CPRO: { VL: 1.34, L: 1.15, N: 1.00, H: 0.88, VH: 0.76, EH: null },
-            CPER: { VL: 1.29, L: 1.12, N: 1.00, H: 0.90, VH: 0.81, EH: null },
-            EPLA: { VL: 1.19, L: 1.09, N: 1.00, H: 0.91, VH: 0.85, EH: null },
-            ELP: { VL: 1.20, L: 1.09, N: 1.00, H: 0.91, VH: 0.84, EH: null },
+            ACAP: { VL: 1.42, L: 1.19, N: 1.00, H: 0.85, VH: 0.71, EH: null },
+            PCAP: { VL: 1.22, L: 1.10, N: 1.00, H: 0.88, VH: 0.81, EH: null },
+            PCON: { VL: 1.34, L: 1.15, N: 1.00, H: 0.88, VH: 0.76, EH: null },
+            AEXP: { VL: 1.29, L: 1.12, N: 1.00, H: 0.90, VH: 0.81, EH: null },
+            PEXP: { VL: 1.19, L: 1.09, N: 1.00, H: 0.91, VH: 0.85, EH: null },
+            LTEX: { VL: 1.20, L: 1.09, N: 1.00, H: 0.91, VH: 0.84, EH: null },
         },
         PLATAFORMA: {
-            RTE: { VL: null, L: null, N: 1.00, H: 1.11, VH: 1.29, EH: 1.63 },
-            RMP: { VL: null, L: null, N: 1.00, H: 1.05, VH: 1.17, EH: 1.46 },
-            VMC: { VL: null, L: 0.87, N: 1.00, H: 1.15, VH: 1.30, EH: null },
+            TIME: { VL: null, L: null, N: 1.00, H: 1.11, VH: 1.29, EH: 1.63 },
+            STOR: { VL: null, L: null, N: 1.00, H: 1.05, VH: 1.17, EH: 1.46 },
+            PVOL: { VL: null, L: 0.87, N: 1.00, H: 1.15, VH: 1.30, EH: null },
         },
         PROYECTO: {
-            UHS: { VL: 1.17, L: 1.09, N: 1.00, H: 0.90, VH: 0.78, EH: null },
-            RPL: { VL: 1.43, L: 1.14, N: 1.00, H: null, VH: null, EH: null },
-            DMS: { VL: 1.22, L: 1.09, N: 1.00, H: 0.93, VH: 0.86, EH: 0.80 },
+            TOOL: { VL: 1.17, L: 1.09, N: 1.00, H: 0.90, VH: 0.78, EH: null },
+            SITE: { VL: 1.43, L: 1.14, N: 1.00, H: null, VH: null, EH: null },
+            SCED: { VL: 1.22, L: 1.09, N: 1.00, H: 0.93, VH: 0.86, EH: 0.80 },
         },
     };
 
