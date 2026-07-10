@@ -85,8 +85,8 @@ const CocomoTwo = () => {
         },
         PROYECTO: {
             TOOL: { VL: 1.17, L: 1.09, N: 1.00, H: 0.90, VH: 0.78, EH: null },
-            SITE: { VL: 1.43, L: 1.14, N: 1.00, H: null, VH: null, EH: null },
-            SCED: { VL: 1.22, L: 1.09, N: 1.00, H: 0.93, VH: 0.86, EH: 0.80 },
+            SITE: { VL: 1.22, L: 1.09, N: 1.00, H: 0.93, VH: 0.86, EH: 0.80 },
+            SCED: { VL: 1.43, L: 1.14, N: 1.00, H: null, VH: null, EH: null },
         },
     };
 
